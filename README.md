@@ -60,11 +60,12 @@ Our system combines data from three comprehensive datasets:
 - [x] Normalized college names, fees, and course information
 - [x] Handled missing values and encoding issues
 
-### 🔄 Phase 2: Data Merging (IN PROGRESS)
-- [ ] Merge all three datasets into unified database
-- [ ] Implement fuzzy matching for college names
-- [ ] Handle duplicate entries
-- [ ] Create master dataset
+### ✅ Phase 2: Data Integration (COMPLETE)
+- [x] Merged all three datasets into unified database
+- [x] Implemented fuzzy matching for college names (95%+ accuracy)
+- [x] Handled duplicate entries across datasets
+- [x] Created master datasets (5,446 colleges + 2,769 courses)
+- [x] Enhanced 712 colleges with multi-source data
 
 ### 📅 Phase 3: Backend Development (UPCOMING)
 - [ ] Design database schema (PostgreSQL/MongoDB)
@@ -85,13 +86,17 @@ Our system combines data from three comprehensive datasets:
 ```
 college-recommendation-system/
 ├── data/
-│   ├── cleaned_engineering_colleges_india.csv  # 5,446 colleges
-│   ├── cleaned_engineering.csv                 # 2,920 course entries
-│   ├── cleaned_nirf_rankings.csv               # 200 ranked colleges
+│   ├── master_colleges.csv                     # 5,446 colleges (USE THIS)
+│   ├── master_courses.csv                      # 2,769 course entries (USE THIS)
+│   ├── cleaned_engineering_colleges_india.csv  # Intermediate
+│   ├── cleaned_engineering.csv                 # Intermediate
+│   ├── cleaned_nirf_rankings.csv               # Intermediate
 │   └── [original datasets - backups]
 │
 ├── data_cleaning.py                            # Data cleaning script
-├── DATA_CLEANING_COMPLETE.md                   # Cleaning documentation
+├── data_merging.py                             # Data integration script
+├── DATA_CLEANING_COMPLETE.md                   # Phase 1 documentation
+├── DATA_INTEGRATION_COMPLETE.md                # Phase 2 documentation
 └── README.md                                   # This file
 ```
 
@@ -103,6 +108,8 @@ college-recommendation-system/
 - **Python 3.12** - Data processing and cleaning
 - **Pandas** - Data manipulation
 - **NumPy** - Numerical operations
+- **FuzzyWuzzy** - Fuzzy string matching for data integration
+- **python-Levenshtein** - Fast string similarity calculations
 
 ### Planned
 - **Backend:** FastAPI / Flask
@@ -129,26 +136,33 @@ cd college-recommendation-system
 
 2. **Install dependencies**
 ```bash
-pip install pandas numpy
+pip install pandas numpy fuzzywuzzy python-Levenshtein
 ```
 
-3. **Access cleaned data**
+3. **Access merged master data**
 ```python
 import pandas as pd
 
-# Load datasets
-colleges = pd.read_csv('data/cleaned_engineering_colleges_india.csv')
-courses = pd.read_csv('data/cleaned_engineering.csv')
-rankings = pd.read_csv('data/cleaned_nirf_rankings.csv')
+# Load master datasets (recommended)
+colleges = pd.read_csv('data/master_colleges.csv')
+courses = pd.read_csv('data/master_courses.csv')
 
-# Example: Find IIT colleges
-iit_colleges = colleges[colleges['College Name'].str.contains('IIT')]
-print(iit_colleges[['College Name', 'City', 'State', 'Average Fees']])
+# Example: Find Top 10 NIRF ranked colleges
+top_10 = colleges[colleges['NIRF_Rank'].notna()].nsmallest(10, 'NIRF_Rank')
+print(top_10[['College Name', 'City', 'State', 'NIRF_Rank', 'Average Fees']])
+
+# Example: Find Computer Science courses
+cs_courses = courses[courses['Course'].str.contains('Computer Science', case=False)]
+print(f"Found {len(cs_courses)} Computer Science programs")
 ```
 
-### Re-run Data Cleaning (if needed)
+### Re-run Data Processing (if needed)
 ```bash
+# Re-run cleaning
 python data_cleaning.py
+
+# Re-run merging
+python data_merging.py
 ```
 
 ---
@@ -157,12 +171,16 @@ python data_cleaning.py
 
 | Metric | Value |
 |--------|-------|
-| Total Colleges | 8,566 |
-| Unique Engineering Courses | 162 |
+| Total Colleges | 5,446 |
+| Total Course Entries | 2,769 |
+| Unique Engineering Courses | 123 |
 | States Covered | 35+ |
 | Fee Range | ₹180 - ₹35,78,597 |
-| NIRF Ranked Colleges | 200 |
+| NIRF Ranked Colleges | 220 |
+| NBA Accredited | 526 |
+| NAAC Accredited | 468 |
 | Data Quality Score | 95/100 |
+| Match Success Rate | 95%+ |
 
 ---
 
@@ -199,17 +217,27 @@ Contributions are welcome! This project is in active development.
 
 ---
 
-## 📝 Data Cleaning Process
+## 📝 Data Processing Pipeline
 
-Our data cleaning pipeline ensures high-quality, consistent data:
+Our comprehensive data processing ensures high-quality, unified data:
 
+### **Phase 1: Data Cleaning**
 - ✅ **College Name Standardization** - Removed extra spaces, line breaks (387 fixes)
 - ✅ **Course Name Cleaning** - Fixed formatting, removed line breaks (469 fixes)
 - ✅ **Missing Value Handling** - Filled 11,096 missing values appropriately
 - ✅ **Fee Normalization** - Converted to numeric format (5,446 conversions)
 - ✅ **Encoding Fixes** - Handled UTF-8 and Latin-1 encoding issues
 
-For detailed information, see [DATA_CLEANING_COMPLETE.md](DATA_CLEANING_COMPLETE.md)
+### **Phase 2: Data Integration**
+- ✅ **Fuzzy Matching** - 95%+ accuracy matching colleges across datasets
+- ✅ **Schema Unification** - Combined 28 columns from 3 sources
+- ✅ **Data Enrichment** - Enhanced 712 colleges with multi-source data
+- ✅ **Duplicate Handling** - Intelligently merged overlapping information
+- ✅ **Master Databases** - Created comprehensive college and course databases
+
+For detailed information:
+- Phase 1: See [DATA_CLEANING_COMPLETE.md](DATA_CLEANING_COMPLETE.md)
+- Phase 2: See [DATA_INTEGRATION_COMPLETE.md](DATA_INTEGRATION_COMPLETE.md)
 
 ---
 
@@ -236,7 +264,8 @@ Courses: Computer Science, Electronics, Mechanical, Civil, etc.
 ## 🔜 Roadmap
 
 ### Short Term (Q4 2024)
-- [ ] Complete data merging
+- [x] Complete data cleaning ✅
+- [x] Complete data merging ✅
 - [ ] Design database schema
 - [ ] Build basic REST API
 
