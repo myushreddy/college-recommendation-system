@@ -11,11 +11,11 @@
 
 ## 📊 Quick Summary
 
-| Dataset | Rows | Issues Fixed | Status |
-|---------|------|--------------|--------|
-| Engineering Colleges India | 5,446 | 11,161 | ✅ Clean |
-| Engineering.csv | 2,920 | 791 | ✅ Clean |
-| NIRF Rankings 2024 | 200 | - | ✅ Clean |
+| Dataset                    | Rows  | Issues Fixed | Status   |
+|----------------------------|------ |--------------|--------   |
+| Engineering Colleges India | 5,446 | 11,161       | ✅ Clean |
+| Engineering.csv            | 2,920 | 791          | ✅ Clean |
+| NIRF Rankings 2024         | 200   | -            | ✅ Clean |
 
 **Total Issues Fixed:** 12,583
 
