@@ -1,57 +1,85 @@
 ================================================================================
 ✅ STEP 1: COMPLETE - Database "college_recommendation" created!
+✅ STEP 2: COMPLETE - All 4 tables created successfully!
 ================================================================================
 
 ================================================================================
-STEP 2: RUN DATABASE SCHEMA (Create Tables)
+STEP 3: INSTALL PYTHON DEPENDENCIES & CONFIGURE CONNECTION
 ================================================================================
 
-FOLLOW THESE STEPS:
+PART A: INSTALL psycopg2 (PostgreSQL adapter for Python)
+---------------------------------------------------------
 
-1. RIGHT-CLICK ON "college_recommendation" DATABASE
-   - In the left sidebar, find "college_recommendation" database
-   - Right-click on it
-   - Select "Query Tool" (or press Alt+Shift+Q)
+1. OPEN POWERSHELL/TERMINAL IN VS CODE
+   - In VS Code, open Terminal (View → Terminal or Ctrl+`)
+   - Make sure you're in the project folder
+
+2. INSTALL psycopg2
+   Run this command:
    
-   A new Query Editor window will open on the right side
-
-2. OPEN THE SCHEMA FILE
-   - In the Query Tool window, click on the "Open File" icon (folder icon)
-   - OR go to File → Open
-   - Navigate to your project folder:
-     C:\Users\mayus\Documents\GitHub\college-recommendation-system
-   - Select the file: database_schema.sql
-   - Click "Open"
-
-3. EXECUTE THE SCHEMA
-   - You'll see all the SQL code loaded in the Query Editor
-   - Click the "Execute/Run" button (▶ play icon) 
-   - OR press F5
-   - OR go to Query → Execute/Refresh (F5)
-
-4. VERIFY SUCCESS
-   You should see messages like:
-   - "DROP TABLE"
-   - "CREATE TABLE"
-   - "CREATE INDEX"
-   - "CREATE VIEW"
+   pip install psycopg2-binary
    
-   At the bottom, it should say: "Query returned successfully"
+   Wait for it to complete. You should see "Successfully installed psycopg2-binary"
 
-5. CHECK TABLES WERE CREATED
-   - In left sidebar, expand "college_recommendation" database
-   - Click on "Schemas" → "public" → "Tables"
-   - You should see 4 tables:
-     ✓ colleges
-     ✓ college_facilities
-     ✓ courses
-     ✓ course_features
+
+PART B: CONFIGURE DATABASE PASSWORD
+---------------------------------------------------------
+
+3. OPEN database_import.py FILE
+   - In VS Code, open the file: database_import.py
+   - Look for line 16 (the DB_CONFIG section)
+
+4. UPDATE YOUR PASSWORD
+   Find this section:
+   
+   DB_CONFIG = {
+       'host': 'localhost',
+       'port': 5432,
+       'database': 'college_recommendation',
+       'user': 'postgres',
+       'password': 'your_password'  # ← CHANGE THIS!
+   }
+   
+   Replace 'your_password' with your actual PostgreSQL password
+   (The same password you use to login to pgAdmin 4)
+
+5. SAVE THE FILE
+   Press Ctrl+S to save
+
+
+PART C: RUN THE IMPORT SCRIPT
+---------------------------------------------------------
+
+6. RUN THE IMPORT COMMAND
+   In the VS Code Terminal (PowerShell), run:
+   
+   python database_import.py
+   
+   This will:
+   - Connect to the database
+   - Import 5,515 colleges
+   - Import 5,515 facility records
+   - Import 2,786 courses
+   - Verify everything imported correctly
+
+7. WATCH THE PROGRESS
+   You'll see messages like:
+   - "✅ Successfully connected to PostgreSQL database!"
+   - "📂 Loading CSV files..."
+   - "📥 Importing colleges..."
+   - "✅ Successfully imported 5,515 colleges"
+   - etc.
 
 ================================================================================
-ONCE YOU SEE "Query returned successfully", TELL ME AND WE'LL DO STEP 3!
+ONCE THE IMPORT COMPLETES, TELL ME AND I'LL HELP YOU VERIFY THE DATA!
 ================================================================================
+
+EXPECTED OUTPUT:
+- Total colleges: 5,515
+- Total facilities: 5,515
+- Total courses: 2,786
 
 TROUBLESHOOTING:
-- If file won't open: Make sure you're in the correct folder
-- If error occurs: Take a screenshot and show me
-- If tables don't appear: Try right-clicking "Tables" and selecting "Refresh"
+- If psycopg2 fails: Try "pip install psycopg2" instead
+- If connection fails: Double-check your password in DB_CONFIG
+- If import errors: Take a screenshot and show me
