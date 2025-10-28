@@ -1,0 +1,42 @@
+================================================================================
+STEP 1: CREATE DATABASE IN pgAdmin 4
+================================================================================
+
+FOLLOW THESE STEPS:
+
+1. OPEN pgAdmin 4
+   - Launch pgAdmin 4 from your Start Menu or Desktop
+   - Wait for it to load in your browser
+
+2. CONNECT TO PostgreSQL SERVER
+   - In the left sidebar, you'll see "Servers"
+   - Click the arrow next to "Servers" to expand
+   - Click on "PostgreSQL [version]" (e.g., PostgreSQL 15, PostgreSQL 16)
+   - Enter your master password if prompted
+
+3. CREATE NEW DATABASE
+   - Right-click on "Databases" in the left sidebar
+   - Select "Create" → "Database..."
+   
+4. FILL IN DATABASE DETAILS
+   A pop-up window will appear. Fill in:
+   
+   General Tab:
+   - Database: college_recommendation
+   - Owner: postgres (or your username)
+   - Comment: College Recommendation System Database
+   
+   Click "Save" button at the bottom
+
+5. VERIFY DATABASE CREATED
+   - You should see "college_recommendation" appear under "Databases"
+   - Click on it to expand and verify it's there
+
+================================================================================
+ONCE DATABASE IS CREATED, COME BACK AND I'LL GUIDE YOU THROUGH STEP 2!
+================================================================================
+
+TROUBLESHOOTING:
+- If PostgreSQL server is not showing: Make sure PostgreSQL is installed and running
+- If you can't connect: Check your PostgreSQL password
+- If "Databases" is grayed out: You need to connect to the server first
