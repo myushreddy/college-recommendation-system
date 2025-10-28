@@ -1,42 +1,57 @@
 ================================================================================
-STEP 1: CREATE DATABASE IN pgAdmin 4
+✅ STEP 1: COMPLETE - Database "college_recommendation" created!
+================================================================================
+
+================================================================================
+STEP 2: RUN DATABASE SCHEMA (Create Tables)
 ================================================================================
 
 FOLLOW THESE STEPS:
 
-1. OPEN pgAdmin 4
-   - Launch pgAdmin 4 from your Start Menu or Desktop
-   - Wait for it to load in your browser
-
-2. CONNECT TO PostgreSQL SERVER
-   - In the left sidebar, you'll see "Servers"
-   - Click the arrow next to "Servers" to expand
-   - Click on "PostgreSQL [version]" (e.g., PostgreSQL 15, PostgreSQL 16)
-   - Enter your master password if prompted
-
-3. CREATE NEW DATABASE
-   - Right-click on "Databases" in the left sidebar
-   - Select "Create" → "Database..."
+1. RIGHT-CLICK ON "college_recommendation" DATABASE
+   - In the left sidebar, find "college_recommendation" database
+   - Right-click on it
+   - Select "Query Tool" (or press Alt+Shift+Q)
    
-4. FILL IN DATABASE DETAILS
-   A pop-up window will appear. Fill in:
-   
-   General Tab:
-   - Database: college_recommendation
-   - Owner: postgres (or your username)
-   - Comment: College Recommendation System Database
-   
-   Click "Save" button at the bottom
+   A new Query Editor window will open on the right side
 
-5. VERIFY DATABASE CREATED
-   - You should see "college_recommendation" appear under "Databases"
-   - Click on it to expand and verify it's there
+2. OPEN THE SCHEMA FILE
+   - In the Query Tool window, click on the "Open File" icon (folder icon)
+   - OR go to File → Open
+   - Navigate to your project folder:
+     C:\Users\mayus\Documents\GitHub\college-recommendation-system
+   - Select the file: database_schema.sql
+   - Click "Open"
+
+3. EXECUTE THE SCHEMA
+   - You'll see all the SQL code loaded in the Query Editor
+   - Click the "Execute/Run" button (▶ play icon) 
+   - OR press F5
+   - OR go to Query → Execute/Refresh (F5)
+
+4. VERIFY SUCCESS
+   You should see messages like:
+   - "DROP TABLE"
+   - "CREATE TABLE"
+   - "CREATE INDEX"
+   - "CREATE VIEW"
+   
+   At the bottom, it should say: "Query returned successfully"
+
+5. CHECK TABLES WERE CREATED
+   - In left sidebar, expand "college_recommendation" database
+   - Click on "Schemas" → "public" → "Tables"
+   - You should see 4 tables:
+     ✓ colleges
+     ✓ college_facilities
+     ✓ courses
+     ✓ course_features
 
 ================================================================================
-ONCE DATABASE IS CREATED, COME BACK AND I'LL GUIDE YOU THROUGH STEP 2!
+ONCE YOU SEE "Query returned successfully", TELL ME AND WE'LL DO STEP 3!
 ================================================================================
 
 TROUBLESHOOTING:
-- If PostgreSQL server is not showing: Make sure PostgreSQL is installed and running
-- If you can't connect: Check your PostgreSQL password
-- If "Databases" is grayed out: You need to connect to the server first
+- If file won't open: Make sure you're in the correct folder
+- If error occurs: Take a screenshot and show me
+- If tables don't appear: Try right-clicking "Tables" and selecting "Refresh"
