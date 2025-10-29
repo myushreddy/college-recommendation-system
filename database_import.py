@@ -20,7 +20,7 @@ DB_CONFIG = {
     'port': 5432,
     'database': 'college_recommendation',  # Change this to your database name
     'user': 'postgres',  # Change this to your PostgreSQL username
-    'password': 'your_password'  # Change this to your PostgreSQL password
+    'password': 'Ayush@123'  # Change this to your PostgreSQL password
 }
 
 # File paths
@@ -116,15 +116,15 @@ def clean_for_db(value):
 def prepare_college_row(row: pd.Series) -> Dict:
     """Prepare college row for database insertion"""
     return {
-        'college_name': clean_for_db(row.get('College_Name')),
+        'college_name': clean_for_db(row.get('College Name')),  # Note: space not underscore
         'state': clean_for_db(row.get('State')),
         'city': clean_for_db(row.get('City')),
-        'ownership': clean_for_db(row.get('Ownership')),
-        'college_type': clean_for_db(row.get('College_Type')),
+        'ownership': clean_for_db(row.get('College Type')),  # Fixed column name
+        'college_type': clean_for_db(row.get('College Type')),
         'nirf_rank': clean_for_db(row.get('NIRF_Rank')),
-        'naac_grade': clean_for_db(row.get('NAAC_Grade')),
-        'naac_score': clean_for_db(row.get('NAAC_Score')),
-        'tier': clean_for_db(row.get('Tier')),
+        'naac_grade': clean_for_db(row.get('NAAC_Accreditation')),  # Fixed column name
+        'naac_score': clean_for_db(row.get('Rating')),  # Using Rating as NAAC score
+        'tier': clean_for_db(row.get('Affordability_Tier')),  # Fixed column name
         'affordability_score': clean_for_db(row.get('Affordability_Score')),
         'facility_score': clean_for_db(row.get('Facility_Score')),
         'quality_score': clean_for_db(row.get('Quality_Score')),
@@ -135,39 +135,54 @@ def prepare_college_row(row: pd.Series) -> Dict:
 
 def prepare_facility_row(row: pd.Series, college_id: int) -> Dict:
     """Prepare facility row for database insertion"""
+    # Convert Yes/No to boolean
+    def to_bool(val):
+        if pd.isna(val):
+            return False
+        return str(val).strip().lower() == 'yes'
+    
     return {
         'college_id': college_id,
-        'has_hostel': bool(row.get('Has_Hostel', False)),
-        'has_library': bool(row.get('Has_Library', False)),
-        'has_sports': bool(row.get('Has_Sports', False)),
-        'has_gym': bool(row.get('Has_Gym', False)),
-        'has_cafeteria': bool(row.get('Has_Cafeteria', False)),
-        'has_medical': bool(row.get('Has_Medical', False)),
-        'has_wifi': bool(row.get('Has_WiFi', False)),
-        'has_lab': bool(row.get('Has_Lab', False)),
-        'has_auditorium': bool(row.get('Has_Auditorium', False)),
-        'has_transport': bool(row.get('Has_Transport', False)),
+        'has_hostel': to_bool(row.get('Has_Hostel')),
+        'has_library': to_bool(row.get('Has_Library')),
+        'has_sports': to_bool(row.get('Has_Sports')),
+        'has_gym': to_bool(row.get('Has_Gym')),
+        'has_cafeteria': to_bool(row.get('Has_Cafeteria')),
+        'has_medical': to_bool(row.get('Has_Medical')),
+        'has_wifi': to_bool(row.get('Has_Wifi')),  # Note: capital W
+        'has_lab': to_bool(row.get('Has_Lab')),
+        'has_auditorium': to_bool(row.get('Has_Auditorium')),
+        'has_transport': to_bool(row.get('Has_Transport')),
         'facilities_text': clean_for_db(row.get('Facilities'))
     }
 
 
 def prepare_course_row(row: pd.Series, college_id: int) -> Dict:
     """Prepare course row for database insertion"""
+    # Helper to convert Yes/No to boolean
+    def to_bool(val):
+        if pd.isna(val):
+            return False
+        return str(val).strip().lower() == 'yes'
+    
+    # Get category and set flags based on it
+    category = str(row.get('Course_Category', '')).lower()
+    
     return {
         'college_id': college_id,
-        'course_name': clean_for_db(row.get('Course_Name')),
-        'degree_type': clean_for_db(row.get('Degree_Type')),
-        'duration_years': clean_for_db(row.get('Duration_Years')),
-        'total_fee': clean_for_db(row.get('Total_Fee')),
-        'fee_per_year': clean_for_db(row.get('Fee_Per_Year')),
+        'course_name': clean_for_db(row.get('Course')),  # Fixed column name
+        'degree_type': None,  # Not in CSV
+        'duration_years': None,  # Not in CSV
+        'total_fee': None,  # Not in CSV
+        'fee_per_year': clean_for_db(row.get('Average_Fees')),  # Fixed column name
         'course_category': clean_for_db(row.get('Course_Category')),
-        'is_cs_related': bool(row.get('Is_CS', False)),
-        'is_ai_ml': bool(row.get('Is_AI_ML', False)),
-        'is_electronics': bool(row.get('Is_Electronics', False)),
-        'is_mechanical': bool(row.get('Is_Mechanical', False)),
-        'is_civil': bool(row.get('Is_Civil', False)),
-        'is_chemical': bool(row.get('Is_Chemical', False)),
-        'is_aerospace': bool(row.get('Is_Aerospace', False))
+        'is_cs_related': 'computer' in category or 'cs' in category or 'it' in category,
+        'is_ai_ml': 'ai' in category or 'ml' in category or 'data' in category,
+        'is_electronics': 'electronic' in category or 'ece' in category or 'eee' in category,
+        'is_mechanical': 'mechanical' in category,
+        'is_civil': 'civil' in category,
+        'is_chemical': 'chemical' in category or 'biotech' in category,
+        'is_aerospace': 'aero' in category
     }
 
 
@@ -203,7 +218,7 @@ def import_colleges(conn, colleges_df: pd.DataFrame) -> Dict[str, int]:
             college_data = prepare_college_row(row)
             cur.execute(insert_college_query, college_data)
             college_id = cur.fetchone()[0]
-            college_id_map[row['College_Name']] = college_id
+            college_id_map[row['College Name']] = college_id  # Fixed: space not underscore
             success_count += 1
             
             if success_count % 500 == 0:
@@ -212,7 +227,7 @@ def import_colleges(conn, colleges_df: pd.DataFrame) -> Dict[str, int]:
                 
         except Exception as e:
             error_count += 1
-            print(f"   ⚠️  Error importing college '{row.get('College_Name')}': {e}")
+            print(f"   ⚠️  Error importing college '{row.get('College Name')}': {e}")
             conn.rollback()
             continue
     
@@ -247,7 +262,7 @@ def import_facilities(conn, colleges_df: pd.DataFrame, college_id_map: Dict[str,
     error_count = 0
     
     for idx, row in colleges_df.iterrows():
-        college_name = row['College_Name']
+        college_name = row['College Name']  # Fixed: space not underscore
         if college_name not in college_id_map:
             continue
             
