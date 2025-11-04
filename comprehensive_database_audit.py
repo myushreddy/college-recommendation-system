@@ -4,7 +4,18 @@ This script checks every field and identifies missing/incomplete data
 """
 
 import pandas as pd
-import psycopg2
+import importlib
+import importlib.util
+
+_psycopg2_spec = importlib.util.find_spec('psycopg2')
+if _psycopg2_spec is None:
+    raise ImportError(
+        "The 'psycopg2' package is not installed in this Python environment. "
+        "Install it with: pip install psycopg2-binary "
+        "and ensure your editor/runner is using the same virtualenv/interpreter."
+    )
+psycopg2 = importlib.import_module('psycopg2')
+
 from collections import defaultdict
 
 # Database config
