@@ -24,17 +24,17 @@ cur = conn.cursor()
 # Check total NIRF ranked colleges
 cur.execute('SELECT COUNT(*) FROM colleges WHERE nirf_rank IS NOT NULL')
 total_nirf = cur.fetchone()[0]
-print(f"\n✅ Total NIRF ranked colleges in database: {total_nirf}")
+print(f"\nTotal NIRF ranked colleges in database: {total_nirf}")
 
 # Check top 200 NIRF
 cur.execute('SELECT COUNT(*) FROM colleges WHERE nirf_rank <= 200')
 top_200 = cur.fetchone()[0]
-print(f"✅ Top 200 NIRF colleges: {top_200} / 200")
+print(f"Top 200 NIRF colleges: {top_200} / 200")
 
 # Check top 50 NIRF
 cur.execute('SELECT COUNT(*) FROM colleges WHERE nirf_rank <= 50')
 top_50 = cur.fetchone()[0]
-print(f"✅ Top 50 NIRF colleges: {top_50} / 50")
+print(f"Top 50 NIRF colleges: {top_50} / 50")
 
 # Show top 50 colleges
 print("\n" + "=" * 80)
