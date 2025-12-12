@@ -108,9 +108,9 @@ print("\n" + "=" * 80)
 print("CONCLUSION:")
 print("=" * 80)
 print(f"""
-✅ Database has {total_nirf} NIRF ranked colleges
-✅ Top 200 NIRF: {top_200} colleges present
-✅ Quality over quantity: De-duplication ensures clean data
+ Database has {total_nirf} NIRF ranked colleges
+ Top 200 NIRF: {top_200} colleges present
+ Quality over quantity: De-duplication ensures clean data
 
 Is 2,619 colleges enough?
 - YES! It's actually better than 5,515 with duplicates
