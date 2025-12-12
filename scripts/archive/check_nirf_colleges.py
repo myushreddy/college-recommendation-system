@@ -68,7 +68,7 @@ all_ranks = set(range(1, 201))
 missing_ranks = sorted(all_ranks - present_ranks)
 
 if missing_ranks:
-    print(f"\n⚠️  Missing {len(missing_ranks)} NIRF ranks from top 200:")
+    print(f"\n Missing {len(missing_ranks)} NIRF ranks from top 200:")
     print(f"   {missing_ranks[:20]}..." if len(missing_ranks) > 20 else f"   {missing_ranks}")
 else:
     print("\nAll NIRF ranks 1-200 are present!")
