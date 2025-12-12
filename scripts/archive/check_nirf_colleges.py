@@ -71,7 +71,7 @@ if missing_ranks:
     print(f"\n⚠️  Missing {len(missing_ranks)} NIRF ranks from top 200:")
     print(f"   {missing_ranks[:20]}..." if len(missing_ranks) > 20 else f"   {missing_ranks}")
 else:
-    print("\n✅ All NIRF ranks 1-200 are present!")
+    print("\nAll NIRF ranks 1-200 are present!")
 
 # Now check the original CSV file
 print("\n" + "=" * 80)
@@ -82,14 +82,14 @@ try:
     df = pd.read_csv('data/enriched_master_colleges.csv')
     total_rows = len(df)
     nirf_in_csv = df['NIRF_Rank'].notna().sum()
-    print(f"\n📊 Original CSV Stats:")
+    print(f"\nOriginal CSV Stats:")
     print(f"   Total colleges in CSV: {total_rows:,}")
     print(f"   Colleges with NIRF rank: {nirf_in_csv}")
     
     # Check duplicates
     duplicates = df[df.duplicated(subset=['College Name', 'State', 'City'], keep=False)]
     if len(duplicates) > 0:
-        print(f"\n⚠️  Found {len(duplicates)} duplicate college entries (same name, state, city)")
+        print(f"\nFound {len(duplicates)} duplicate college entries (same name, state, city)")
         print(f"   These were automatically de-duplicated during import")
         print(f"   This is GOOD - it removes redundant data!")
         
@@ -99,7 +99,7 @@ try:
             print(f"      {row['College Name'][:50]} - {row['City']}, {row['State']}")
     
 except Exception as e:
-    print(f"❌ Error reading CSV: {e}")
+    print(f"Error reading CSV: {e}")
 
 cur.close()
 conn.close()
