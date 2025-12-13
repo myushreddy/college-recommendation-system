@@ -544,7 +544,7 @@ new_course_fields = [
 for field in new_course_fields:
     print(f"   ✓ {field}")
 
-print(f"\n📈 SCORE DISTRIBUTIONS:")
+print(f"\nSCORE DISTRIBUTIONS:")
 print(f"   Affordability Score: {colleges_df['Affordability_Score'].mean():.1f}/100 (avg)")
 print(f"   Facility Score: {colleges_df['Facility_Score'].mean():.1f}/100 (avg)")
 print(f"   Quality Score: {colleges_df['Quality_Score'].mean():.1f}/100 (avg)")
