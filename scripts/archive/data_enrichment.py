@@ -525,7 +525,7 @@ print("\n" + "="*80)
 print("ENRICHMENT SUMMARY")
 print("="*80)
 
-print(f"\n📊 NEW FIELDS ADDED TO COLLEGES:")
+print(f"\n NEW FIELDS ADDED TO COLLEGES:")
 new_college_fields = [
     'Facility_Tags', 'Facility_Count', 'Has_Hostel', 'Has_Gym', 'Has_Library',
     'Has_Sports', 'Has_Cafeteria', 'Has_Medical', 'Has_Wifi', 'Has_Lab',
@@ -536,7 +536,7 @@ new_college_fields = [
 for field in new_college_fields:
     print(f"   ✓ {field}")
 
-print(f"\n📊 NEW FIELDS ADDED TO COURSES:")
+print(f"\n NEW FIELDS ADDED TO COURSES:")
 new_course_fields = [
     'Course_Category', 'Affordability_Score', 'Quality_Score', 'Overall_Score',
     'Affordability_Tier', 'Quality_Tier', 'Ranking_Tier'
