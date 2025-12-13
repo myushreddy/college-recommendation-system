@@ -345,7 +345,7 @@ def main():
         print("  3. Build the database schema")
         
     except Exception as e:
-        print(f"\n❌ ERROR: {e}")
+        print(f"\nERROR: {e}")
         import traceback
         traceback.print_exc()
 
