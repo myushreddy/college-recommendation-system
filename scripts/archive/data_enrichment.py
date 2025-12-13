@@ -556,18 +556,18 @@ for idx, row in top_10.iterrows():
     nirf = f"(Rank {int(row['NIRF_Rank'])})" if pd.notna(row['NIRF_Rank']) else "(Not Ranked)"
     print(f"   {row['Overall_Score']:.1f}/100 - {row['College Name']}, {row['City']} {nirf}")
 
-print(f"\n📊 AFFORDABILITY TIER DISTRIBUTION:")
+print(f"\n AFFORDABILITY TIER DISTRIBUTION:")
 tier_dist = colleges_df['Affordability_Tier'].value_counts()
 for tier, count in tier_dist.items():
     print(f"   {tier}: {count:,} colleges ({count/len(colleges_df)*100:.1f}%)")
 
-print(f"\n📊 QUALITY TIER DISTRIBUTION:")
+print(f"\n QUALITY TIER DISTRIBUTION:")
 quality_dist = colleges_df['Quality_Tier'].value_counts()
 for tier, count in quality_dist.items():
     print(f"   {tier}: {count:,} colleges ({count/len(colleges_df)*100:.1f}%)")
 
 print("\n" + "="*80)
-print("✅ DATA ENRICHMENT COMPLETE!")
+print(" DATA ENRICHMENT COMPLETE!")
 print("="*80)
 print(f"\nNew enriched files created:")
 print(f"   • enriched_master_colleges.csv - {len(colleges_df):,} colleges with {len(colleges_df.columns)} fields")
