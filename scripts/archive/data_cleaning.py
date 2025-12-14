@@ -338,7 +338,7 @@ def main():
         print(f"  • cleaned_nirf_rankings.csv: {len(df3)} rows")
         print(f"\n  Total records processed: {len(df1) + len(df2) + len(df3):,}")
         
-        print("\n✅ All datasets cleaned successfully!")
+        print("\n All datasets cleaned successfully!")
         print("\nNext steps:")
         print("  1. Review the cleaned CSV files in the 'data' folder")
         print("  2. Run data merging to combine all three datasets")
