@@ -26,9 +26,9 @@ try:
     finally:
         db.close()
         
-    print("\n✅ All database tests passed!")
+    print("\n All database tests passed!")
     
 except Exception as e:
-    print(f"❌ Database error: {e}")
+    print(f" Database error: {e}")
     import traceback
     traceback.print_exc()
