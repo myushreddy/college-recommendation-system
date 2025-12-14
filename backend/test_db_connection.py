@@ -12,15 +12,15 @@ try:
     with engine.connect() as connection:
         result = connection.execute(text("SELECT COUNT(*) FROM colleges"))
         count = result.scalar()
-        print(f"✅ Database connection successful!")
-        print(f"✅ Total colleges in database: {count}")
+        print(f"Database connection successful!")
+        print(f" Total colleges in database: {count}")
         
     # Test session
     db = SessionLocal()
     try:
         result = db.execute(text("SELECT college_name FROM colleges LIMIT 5"))
         colleges = result.fetchall()
-        print(f"\n✅ Sample colleges:")
+        print(f"\nSample colleges:")
         for i, (name,) in enumerate(colleges, 1):
             print(f"   {i}. {name}")
     finally:
