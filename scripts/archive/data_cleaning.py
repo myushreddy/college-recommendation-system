@@ -332,7 +332,7 @@ def main():
         print("\n" + "="*80)
         print("CLEANING COMPLETE!")
         print("="*80)
-        print("\n📊 Summary:")
+        print("\n Summary:")
         print(f"  • cleaned_engineering_colleges_india.csv: {len(df1)} rows")
         print(f"  • cleaned_engineering.csv: {len(df2)} rows")
         print(f"  • cleaned_nirf_rankings.csv: {len(df3)} rows")
