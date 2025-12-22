@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.api.colleges import router as colleges_router
+from app.api.nlp import router as nlp_router
 
 # Create FastAPI application
 app = FastAPI(
@@ -42,6 +43,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(colleges_router)
+app.include_router(nlp_router)
 
 
 @app.get("/")
@@ -59,7 +61,9 @@ def root():
             "details": "/api/colleges/{college_id}",
             "compare": "/api/colleges/compare",
             "recommendations": "/api/colleges/recommendations",
-            "statistics": "/api/colleges/stats/overview"
+            "statistics": "/api/colleges/stats/overview",
+            "nlp_query": "/api/nlp/query",
+            "nlp_examples": "/api/nlp/examples"
         }
     }
 
