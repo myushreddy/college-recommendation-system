@@ -44,6 +44,50 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ---
 
+## 🤖 Natural Language Processing (NLP)
+
+The API now supports **natural language queries**! Instead of constructing complex API calls, users can interact using everyday language.
+
+### NLP Installation
+
+Install NLP dependencies:
+```bash
+pip install -r requirements-nlp.txt
+python -m spacy download en_core_web_sm
+```
+
+### Example Queries
+
+```bash
+# Search query
+curl -X POST "http://localhost:8000/api/nlp/query" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "Find CS colleges in Karnataka under 2 lakhs"}'
+
+# Comparison query
+curl -X POST "http://localhost:8000/api/nlp/query" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "Compare IIT Bombay and IIT Delhi"}'
+
+# Recommendation query
+curl -X POST "http://localhost:8000/api/nlp/query" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "Recommend affordable ECE colleges in Tamil Nadu"}'
+```
+
+### Supported Features
+
+- **Intent Detection**: Automatically identifies search, compare, recommend, or info queries
+- **Entity Extraction**: Extracts college names, cities, states, courses, budget, facilities, etc.
+- **Smart Mapping**: Converts natural language to API parameters
+- **Budget Understanding**: Recognizes "2 lakhs", "under 3L", etc.
+- **Course Aliases**: Understands CS, CSE, IT → Computer Science
+- **Facility Recognition**: "with hostel", "good gym", etc.
+
+📖 **Full NLP Documentation**: See [NLP_DOCUMENTATION.md](./NLP_DOCUMENTATION.md)
+
+---
+
 ## 📚 API Endpoints
 
 ### 1. **Search Colleges** `GET /api/colleges/search`
