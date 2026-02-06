@@ -13,10 +13,13 @@ class IntentClassifier:
         # Intent patterns with keywords
         self.patterns = {
             'search': [
-                r'\b(find|show|list|search|get|give|display|tell)\b.*\b(college|university|institution)\b',
+                r'\b(find|show|list|search|get|give|display)\b.*\b(college|university|institution)\b',
                 r'\b(college|university|institution).*\b(in|at|near|around)\b',
                 r'\b(what|which).*\b(college|university|institution)\b',
                 r'\b(engineering college|technical university)\b',
+                r'\b(show|find|list|get).*\b(top|best|ranked|nirf)\b',
+                r'\b(government|private).*\b(college|engineering)\b',
+                r'\b(top|best).*\b(\d+|fifty|hundred).*\b(college)\b',
             ],
             'compare': [
                 r'\b(compare|difference|versus|vs|better)\b',
@@ -25,16 +28,15 @@ class IntentClassifier:
                 r'\b(iit|nit).*\b(or|and|vs)\b.*\b(iit|nit)\b',
             ],
             'recommend': [
-                r'\b(recommend|suggest|advise|best)\b',
+                r'\b(recommend|suggest|advise)\b',
                 r'\b(should i|which should)\b',
                 r'\b(good|suitable|right).*\b(for me|based on)\b',
-                r'\b(within|under|below|budget)\b.*\b(lakh|rupee|rs|inr)\b',
+                r'\b(within|under|below|budget).*\b(lakh|rupee|rs|inr)\b',
             ],
             'info': [
-                r'\b(tell me about|what is|explain|describe|details about)\b',
-                r'\b(fees|fee structure|cost|placement|cutoff|admission)\b',
-                r'\b(facilities|infrastructure|hostel|library)\b',
-                r'\b(nirf|naac|ranking|rank|score)\b',
+                r'\btell me about\b.*\b(specific college|iit|nit|bits|vit)\b',
+                r'\bwhat is\b.*\b(fees|placement|cutoff)\b',
+                r'\b(fees|fee structure|cost|placement|cutoff|admission)\b(?!.*\b(find|show|list|search)\b)',
             ],
             'greeting': [
                 r'\b(hi|hello|hey|greetings|good morning|good afternoon)\b',
