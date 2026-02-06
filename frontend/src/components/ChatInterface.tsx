@@ -96,10 +96,21 @@ export default function ChatInterface() {
         setMessages((prev) => [...prev, infoMessage])
       }
     } catch (error: any) {
+      console.error('Chat error:', error)
+      let errorContent = 'Sorry, I encountered an error. Please try again.'
+      
+      if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
+        errorContent = '⚠️ Cannot connect to the backend server. Please make sure the API is running on http://localhost:8000'
+      } else if (error.response) {
+        errorContent = `Error: ${error.response.data?.detail || error.message}`
+      } else {
+        errorContent = `Error: ${error.message}`
+      }
+      
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: `Sorry, I encountered an error: ${error.message || 'Please try again.'}`,
+        content: errorContent,
         timestamp: new Date(),
       }
       setMessages((prev) => [...prev, errorMessage])
